@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    body * {
+        margin: 10px;
+        border: 1px solid blue;
+    }
+</style>
+
+<body>
+
+    <!-- 
+    Capturing phase – the event goes down to the element.
+    Target phase – the event reached the target element.
+    Bubbling phase – the event bubbles up from the element. 
+    -->
+
+
+    <!-- Bublling -->
+    <form onclick="alert('form')">FORM
+        <div onclick="alert('div')">DIV
+            <p onclick="alert('p')">P</p>
+        </div>
+    </form>
+    <!-- 
+        ouput when click on p ::  p -> div -> form 
+    -->
+
+
+
+    <!-- To stop bubling -->
+    <form onclick="alert('form')">FORM
+        <div onclick="alert('div')">DIV
+            <p onclick="alert('p'); event.stopPropagation()">P</p>
+        </div>
+    </form>
+    <!-- 
+        ouput when click on p ::  p
+        output when click on div :: div -> form
+    -->
+
+
+
+
+
+    <!-- Capturing -->
+    <form id="for_Capturing">FORM
+        <div>DIV
+            <p>P</p>
+        </div>
+    </form>
+
+
+</body>
+
+<script>
+    for (let elem of document.querySelectorAll('#for_Capturing, #for_Capturing *')) {
+        console.log(elem);
+        // elem.addEventListener(
+        //     "click", 
+        //     (e) => {
+        //         alert(`Capturing: ${elem.tagName}`),
+        //         // Stop propagation here if needed
+        //         // event.stopPropagation(),
+        //         event.stopImmediatePropagation()
+        //     },
+        //     true
+        // );
+        elem.addEventListener("click", e => alert(`Bubbling: ${elem.tagName}`));
+    }
+</script>
+
+</html>
